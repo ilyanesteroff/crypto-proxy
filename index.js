@@ -7,8 +7,11 @@ const app = express()
 app.get('/test-proxy', (req, res) => res.json({ proxy: true }))
 app.use(
   '/api/v1/crypto',
-  createProxyMiddleware({ target: 'http://localhost:8080', changeOrigin: true })
+  createProxyMiddleware({
+    target: 'http://localhost:8080/api/v1/crypto', changeOrigin: true
+  })
 )
+
 app.use(
   '/',
   createProxyMiddleware({ target: 'http://localhost:3000', changeOrigin: true, ws: true })
